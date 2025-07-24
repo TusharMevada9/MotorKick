@@ -71,7 +71,9 @@ public class StandaloneCarAI : MonoBehaviour
             Vector2 toBallDir = (ball.position - transform.position).normalized;
             float angle = Mathf.Atan2(toBallDir.y, toBallDir.x) * Mathf.Rad2Deg - 90f; // -90 to align with up
             float currentAngle = rb.rotation;
-            float newAngle = Mathf.MoveTowardsAngle(currentAngle, angle, turnSpeed * Time.deltaTime);
+            // Smooth rotation for hard mode
+            float smoothTurnSpeed = turnSpeed * 0.8f;
+            float newAngle = Mathf.MoveTowardsAngle(currentAngle, angle, smoothTurnSpeed * Time.deltaTime);
             rb.MoveRotation(newAngle);
 
             // --- Side approach logic ---
